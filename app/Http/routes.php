@@ -33,3 +33,7 @@ Route::get('api',function () {
 Route::post('api/user',function () {
     return user_ins()->signup();
 });
+
+Route::post('api/login',function () {
+    return user_ins()->login();
+});
