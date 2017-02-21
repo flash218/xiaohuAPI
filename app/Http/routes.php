@@ -26,6 +26,11 @@ function user_ins(){
     return $user = new App\User();
 }
 
+function question_ins(){
+    return $user = new App\Question();
+}
+
+
 Route::get('api',function () {
     return ['version'=>'1.1'];
 });
@@ -40,4 +45,8 @@ Route::post('api/login',function () {
 
 Route::get('api/logout',function () {
     return user_ins()->logout();
+});
+
+Route::post('api/question/add',function (){
+    return question_ins()->add();
 });
