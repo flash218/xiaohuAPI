@@ -54,3 +54,7 @@ Route::post('api/question/add',function (){
 Route::post('api/question/change',function (){
     return question_ins()->change();
 });
+
+Route::post('api/question/read',function (){
+    return question_ins()->read();
+});

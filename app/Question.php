@@ -62,4 +62,28 @@ class Question extends Model
         return $question->save() ? ['status'=>1,'msg'=>'更新成功!'] : ['status'=>0,'msg'=>'更新失败！'];
     }
 
+    // 查看问题API
+    public function read(){
+
+        /*请求参数中是否有ID，如果有ID直接返回ID所在的行*/
+        if (rq('id'))
+            return ['status'=>1,'data'=>$this->find(rq('id'))];
+
+        /*limit 条件*/
+        $limit = rq('limit') ? : 15;
+
+        /*skip 条件 用于分页*/
+        $skip = (rq('page') ? rq('page') -1 : 0) * $limit;
+
+        /*构建query并返回collection对象数据*/
+        $r = $this
+            ->orderBy('created_at')
+            ->limit($limit)
+            ->skip($skip)
+            ->get(['id','title','desc','user_id','created_at','updated_at'])
+            ->keyBy('id');
+
+        return ['status'=>1,'data'=>$r];
+    }
+
 }
