@@ -86,4 +86,27 @@ class Question extends Model
         return ['status'=>1,'data'=>$r];
     }
 
+    // 删除问题API
+    public function remove(){
+
+        /*检查用户是否登录*/
+        if (!user_ins()->is_logged_in())
+            return ['status'=>0,'msg'=>'请登录!'];
+
+        /*检查传参中是否有ID*/
+        if (!rq('id'))
+            return ['status'=>0,'msg'=>'是否存在ID'];
+
+        /*获取传参id所对应的Model*/
+        $question = $this->find(rq('id'));
+        if (!$question)
+            return ['status'=>0,'msg'=>'问题不存在'];
+
+        /*检查当前用户是否为问题的所有者*/
+        if (session('user_id') != $question->user_id)
+            return ['status'=>0,'msg'=>'权限不足'];
+
+        return $question->delete() ? ['status'=>1,'msg'=>'删除成功!'] : ['status'=>0,'msg'=>'删除失败!'];
+    }
+
 }

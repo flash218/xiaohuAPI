@@ -58,3 +58,7 @@ Route::post('api/question/change',function (){
 Route::post('api/question/read',function (){
     return question_ins()->read();
 });
+
+Route::post('api/question/remove',function (){
+    return question_ins()->remove();
+});
