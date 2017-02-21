@@ -82,6 +82,22 @@ class User extends Authenticatable
         return ['status'=>1,'id'=>$user->id,'msg'=>'用户登录成功！'];
     }
 
+    /*检查用户是否登录*/
+    public function is_logged_in(){
+        /*如果session中存在user_id就返回user_id,否则返回false*/
+        return session('user_id') ? : false;
+    }
+
+    // 用户登出API ***************************
+    public function logout(){
+        /*删除用户名*/
+        session()->forget('username');
+        /*删除用户ID*/
+        session()->forget('user_id');
+
+        return ['status'=>1,'msg'=>'用户退出成功！'];
+    }
+
     //封装经常出现的方法函数
     protected function has_username_and_password(){
         $username = rq('username');

@@ -37,3 +37,7 @@ Route::post('api/user',function () {
 Route::post('api/login',function () {
     return user_ins()->login();
 });
+
+Route::get('api/logout',function () {
+    return user_ins()->logout();
+});
