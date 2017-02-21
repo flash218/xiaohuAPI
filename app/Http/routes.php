@@ -50,3 +50,7 @@ Route::get('api/logout',function () {
 Route::post('api/question/add',function (){
     return question_ins()->add();
 });
+
+Route::post('api/question/change',function (){
+    return question_ins()->change();
+});
